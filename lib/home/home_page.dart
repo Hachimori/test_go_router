@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -39,10 +40,31 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: "button1",
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: "button2",
+            onPressed: () {
+              context.pushNamed(
+                'detail',
+                pathParameters: {'id': '123'},
+                queryParameters: {'msg': 'message sample'},
+                extra: ['Extra 1', 'Extra 2'],
+              );
+            },
+            tooltip: 'Go to Detail Page',
+            child: const Icon(Icons.arrow_forward),
+          ),
+        ],
       ),
     );
   }
